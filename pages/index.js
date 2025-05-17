@@ -26,29 +26,30 @@ export default function Home() {
 
 useEffect(() => {
   if (typeof window !== 'undefined') {
-    setIsMobile(window.innerWidth < 768);
+    const isNowMobile = window.innerWidth < 768;
+    console.log("🔍 Is Mobile View:", isNowMobile); // ✅ Logging added
+    setIsMobile(isNowMobile);
   }
 }, []);
+
   const router = useRouter();
   const isHomePage = router.pathname === "/";
   const getHoverDots = () => {
     const currentLabel = rooms[currentRoom].label;
 
-      typeof window !== "undefined" && window.innerWidth < 768;
-  
     if (currentLabel === "Main Room") {
       return [
         {
           id: "poetry",
           label: "Poetry",
-          top: isMobile ? "88%" : "96%", 
+          top: isMobile ? "88%" : "96%",
           left: isMobile ? "82%" : "48%",
           link: "/poetry",
         },
         {
           id: "portfolio",
           label: "Portfolio",
-          top: isMobile ? "83%" : "90%", 
+          top: isMobile ? "83%" : "90%",
           left: isMobile ? "82%" : "48%",
           link: "/portfolio",
         },
@@ -61,7 +62,7 @@ useEffect(() => {
         },
       ];
     }
-  
+
     if (currentLabel === "Music Room") {
       return [
         {
@@ -80,7 +81,7 @@ useEffect(() => {
         },
       ];
     }
-  
+
     if (currentLabel === "Purple Flux") {
       return [
         {
@@ -99,10 +100,9 @@ useEffect(() => {
         },
       ];
     }
-  
+
     return [];
-  };
-   
+  };  
 
   const [currentRoom, setCurrentRoom] = useState(0);
   const [isMailchimpOpen, setMailchimpOpen] = useState(false);
