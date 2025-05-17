@@ -22,15 +22,13 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import MailchimpForm from "../components/MailchimpForm";
 
 export default function Home() {
- const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-useEffect(() => {
-  if (typeof window !== 'undefined') {
-    const isNowMobile = window.innerWidth < 768;
-    console.log("🔍 Is Mobile View:", isNowMobile); // ✅ Logging added
-    setIsMobile(isNowMobile);
-  }
-}, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsMobile(window.innerWidth < 768);
+    }
+  }, []);
 
   const router = useRouter();
   const isHomePage = router.pathname === "/";
@@ -448,12 +446,22 @@ const scrollRef = useRef(null);
                 className="text-black p-2 w-full rounded border border-gray-400"
                 required
               />
-              <input
-                type="file"
-                onChange={(e) => setFile(e.target.files[0])}
-                className="text-white"
-                required
-              />
+              <label className="bg-white text-black font-semibold px-4 py-2 rounded shadow cursor-pointer hover:bg-gray-200 transition duration-300 w-full text-center">
+  Choose File
+  <input
+    type="file"
+    onChange={(e) => setFile(e.target.files[0])}
+    className="hidden"
+    required
+  />
+</label>
+
+{file && (
+  <p className="text-xs text-white mt-2 truncate">
+    Selected: {file.name}
+  </p>
+)}
+
               <button
                 type="submit"
                 className="bg-white text-black px-4 py-2 rounded font-bold shadow-md hover:bg-gray-300"
