@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+/* ✅ Navigation Bar */
+.nav-link {
+  position: relative;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #ccc;
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ✅ Footer Links */
+.footer-link {
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: opacity 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+  opacity: 0.8;
+}
+
+.footer-link:hover {
+  opacity: 1;
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+}
+
+/* ✅ Global Background */
+body {
+  background: black;
+  color: white !important;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ✅ Prevent Next.js Overlay from Blocking Elements */
+#__next {
+  position: relative;
+  z-index: 1;
+}
+
+/* ✅ Blur Effect when Stories or Footer Expand */
+.blurred {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(15px);
+  filter: blur(15px);
+  transition: all 0.3s ease-in-out;
+  z-index: 40;
+}
+
+/* ✅ Firestore Stories Container */
+.stories-container {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 12px;
+  border: 2px solid white;
+  backdrop-filter: blur(20px);
+  color: white;
+  width: 350px;
+  box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* ✅ Floating Footer Emblem (Now Glows) */
+.footer-emblem {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 50px;
+  height: 50px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  background: transparent;
+  z-index: 50;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.footer-emblem:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
+}
+
+/* ✅ Footer Links Expand */
+.footer-container {
+  position: absolute;
+  bottom: 80px;
+  right: 5%;
+  text-align: right;
+  z-index: 50;
+}
+
+/* ✅ Story Upload Button */
+.upload-button {
+  background: white;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.2);
+}
+
+.upload-button:hover {
+  background: gray;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ✅ Emoji Reaction Container */
+.reaction-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid white;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* ✅ Emoji Buttons */
+.reaction-button {
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.reaction-button:hover {
+  transform: scale(1.2);
+}
+@keyframes subtle-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+.dot-pulse {
+  animation: subtle-pulse 2s ease-in-out infinite;
+}
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.scroll-snap-align {
+  scroll-snap-align: start;
+}
+::-webkit-scrollbar {
+  display: none;
+}
