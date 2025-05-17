@@ -22,7 +22,13 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import MailchimpForm from "../components/MailchimpForm";
 
 export default function Home() {
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+ const [isMobile, setIsMobile] = useState(false);
+
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+    setIsMobile(window.innerWidth < 768);
+  }
+}, []);
   const router = useRouter();
   const isHomePage = router.pathname === "/";
   const getHoverDots = () => {
@@ -245,8 +251,8 @@ const scrollRef = useRef(null);
     className="object-cover"
   />
 
-  {/* Hover Dots */}
-  {getHoverDots().map((dot) => {
+{/* Hover Dots (Desktop) */}
+{getHoverDots().map((dot) => {
   const isActive = activeDotId === dot.id;
 
   return (
@@ -267,16 +273,20 @@ const scrollRef = useRef(null);
         }
       }}
     >
-      <div className="w-2.5 h-2.5 rounded-full bg-white opacity-70 transition-all duration-300 shadow-md dot-pulse" />
-      <div
-  className={`absolute left-6 top-1/2 -translate-y-1/2 bg-white text-black text-xs px-2 py-1 rounded-md font-bold transition duration-300 pointer-events-none ${
-    isMobile ? (isActive ? "opacity-100" : "opacity-0") : "opacity-0 group-hover:opacity-100 md:opacity-0"
-  }`}
-  style={{ fontWeight: '700' }} // <-- force font-weight bold
->
-  {dot.label}
+     <div className="relative w-2.5 h-2.5 rounded-full bg-white opacity-70 transition-all duration-300 shadow-md">
+  <div className="dot-ring" />
 </div>
-
+      <div
+        className={`absolute left-6 top-1/2 -translate-y-1/2 bg-white text-black text-xs px-2 py-1 rounded-md font-bold transition duration-300 pointer-events-none ${
+          isMobile
+            ? isActive
+              ? "opacity-100"
+              : "opacity-0"
+            : "opacity-0 group-hover:opacity-100 md:opacity-0"
+        }`}
+      >
+        {dot.label}
+      </div>
     </div>
   );
 })}
@@ -297,7 +307,8 @@ const scrollRef = useRef(null);
 />
 
     {/* Mobile dots that move with the image */}
-    {getHoverDots().map((dot) => {
+  {/* Mobile dots that move with the image */}
+{getHoverDots().map((dot) => {
   const isActive = activeDotId === dot.id;
 
   return (
@@ -307,26 +318,26 @@ const scrollRef = useRef(null);
       style={{ top: dot.top, left: dot.left }}
       onClick={(e) => {
         e.stopPropagation();
-        if (isMobile) {
-          if (isActive) {
-            window.open(dot.link, dot.link.startsWith("http") ? "_blank" : "_self");
-          } else {
-            setActiveDotId(dot.id);
-          }
-        } else {
+        if (isActive) {
           window.open(dot.link, dot.link.startsWith("http") ? "_blank" : "_self");
+        } else {
+          setActiveDotId(dot.id);
         }
       }}
     >
-      <div className="w-2.5 h-2.5 rounded-full bg-white opacity-70 transition-all duration-300 shadow-md dot-pulse" />
-      <div
-  className={`${poppins.className} absolute left-6 top-1/2 -translate-y-1/2 bg-white text-black text-xs px-2 py-1 rounded-md transition duration-300 pointer-events-none font-bold ${
-    isMobile ? (isActive ? "opacity-100" : "opacity-0") : "opacity-0 group-hover:opacity-100 md:opacity-0"
-  }`}
->
-  {dot.label}
+      <div className="relative w-2.5 h-2.5 rounded-full bg-white opacity-70 transition-all duration-300 shadow-md">
+  <div className="dot-ring" />
 </div>
-
+      <div
+        className={`${poppins.className} absolute left-6 top-1/2 -translate-y-1/2 bg-white text-black text-xs px-2 py-1 rounded-md transition duration-300 font-bold ${
+          isActive ? "opacity-100" : "opacity-0"
+        }`}
+        onClick={() =>
+          window.open(dot.link, dot.link.startsWith("http") ? "_blank" : "_self")
+        }
+      >
+        {dot.label}
+      </div>
     </div>
   );
 })}
