@@ -53,7 +53,7 @@ export default function Home() {
         },
         {
           id: "single",
-          label: "New Single",
+          label: "Latest Releases",
           top: "52%",
           left: isMobile ? "84%" : "49%",
           link: "/music",
@@ -80,24 +80,24 @@ export default function Home() {
       ];
     }
 
-    if (currentLabel === "Purple Flux") {
-      return [
-        {
-          id: "playlists",
-          label: "Playlists",
-          top: "50%",
-          left: isMobile ? "109%" : "65%",
-          link: "/music",
-        },
-        {
-          id: "comingsoon",
-          label: "Coming Soon",
-          top: "45%",
-          left: isMobile ? "40%" : "25%",
-          link: "#",
-        },
-      ];
-    }
+   if (currentLabel === "Purple Flux") {
+  return [
+    {
+      id: "playlists",
+      label: "Playlists",
+      top: "50%",
+      left: isMobile ? "109%" : "65%",
+      link: "https://open.spotify.com/playlist/1IQ7GSQALjqV1fq39FImuF?si=bc4YuJZYT22oHRVNR_yRDg&pt=0c13a9083d514e74c837ab8aa24b7e01&pi=Musqii2WSyyN9",
+    },
+    {
+      id: "comingsoon",
+      label: "Coming Soon",
+      top: "45%",
+      left: isMobile ? "40%" : "25%",
+      link: "#",
+    },
+  ];
+}
 
     return [];
   };  

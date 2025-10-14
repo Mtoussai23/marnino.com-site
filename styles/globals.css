@@ -198,3 +198,26 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+/* Mailchimp modal input fixes */
+.mc-modal input,
+.mc-modal textarea {
+  color: #2A1A1F !important;
+  background: #ffffff !important;
+  -webkit-text-fill-color: #2A1A1F !important; /* Safari/iOS */
+  caret-color: #2A1A1F;
+}
+
+/* Placeholder visibility */
+.mc-modal ::placeholder {
+  color: #6B6B6B;
+  opacity: 1;
+}
+
+/* iOS/Chrome autofill background & text color */
+.mc-modal input:-webkit-autofill,
+.mc-modal input:-webkit-autofill:hover,
+.mc-modal input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #2A1A1F !important;
+  box-shadow: 0 0 0px 1000px #ffffff inset; /* force white bg */
+  transition: background-color 9999s ease-in-out 0s;
+}

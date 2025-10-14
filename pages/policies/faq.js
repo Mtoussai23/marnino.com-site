@@ -4,11 +4,11 @@ export default function FAQ() {
   const faqs = [
     {
       question: "Where can I buy your merch?",
-      answer: "Merch drops are announced on my Instagram (@marnino_) and posted on the merch section of my website. Everything’s made in limited runs — once it’s gone, it’s gone.",
+      answer: "Merch drops are announced on my Instagram (@marnino_) and posted on the merch section of my website. Everything’s made in limited runs. Once it’s gone, it’s gone.",
     },
     {
       question: "How can I book you for a performance or speaking engagement?",
-      answer: "You can reach out via my contact page or send an inquiry directly to my email (check the footer). Please include date, location, type of event, and any budget info.",
+      answer: "You can reach out via my contact page or send an inquiry directly to my email info@marnino.com. Please include date, location, type of event, and any budget info.",
     },
     {
       question: "Where can I listen to your music?",
@@ -16,7 +16,7 @@ export default function FAQ() {
     },
     {
       question: "Are you open to collaborations?",
-      answer: "Absolutely — I love building with other creatives. Whether it’s music, visuals, or writing, feel free to reach out with your idea and links to past work.",
+      answer: "Absolutely, I love building with other creatives. Whether it’s music, visuals, or writing, feel free to reach out with your idea and links to past work.",
     },
     {
       question: "Do you publish your poetry anywhere?",
@@ -24,7 +24,7 @@ export default function FAQ() {
     },
     {
       question: "How can I support your work?",
-      answer: "Showing up means the world. Come to a show. Share a video. Cop some merch. Read a poem. Tell someone about the art. I move with community — always."
+      answer: "Showing up means the world. Come to a show. Share a video. Cop some merch. Stream a song. Tell someone about the art. I move with community, always."
     },
   ];
 
