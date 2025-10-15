@@ -184,79 +184,82 @@ export default function Home() {
   };
 
   // --- Dots, layout-aware: portrait mobile vs desktop/landscape ---
-  const getHoverDots = () => {
-    const currentLabel = rooms[currentRoom].label;
-    const M = isMobilePortrait; // alias for readability
+ const getHoverDots = () => {
+  const currentLabel = rooms[currentRoom].label;
+  const M = isMobilePortrait;
+  const isMobileLandscape = isSmallScreen && isLandscape;
 
-    if (currentLabel === "Main Room") {
-      return [
-        {
-          id: "poetry",
-          label: "Poetry",
-          top: M ? "88%" : "96%",
-          left: M ? "82%" : "48%",
-          link: "/poetry",
-        },
-        {
-          id: "portfolio",
-          label: "Portfolio",
-          top: M ? "83%" : "90%",
-          left: M ? "82%" : "48%",
-          link: "/portfolio",
-        },
-        {
-          id: "single",
-          label: "Latest Releases",
-          top: "52%",
-          left: M ? "84%" : "49%",
-          link: "/music",
-        },
-      ];
-    }
+  if (currentLabel === "Main Room") {
+    // Adjusted for mobile landscape
+    return [
+      {
+        id: "poetry",
+        label: "Poetry",
+        top: isMobileLandscape ? "78%" : M ? "88%" : "90%", // raised on mobile landscape
+        left: M ? "82%" : "48%",
+        link: "/poetry",
+      },
+      {
+        id: "portfolio",
+        label: "Portfolio",
+        top: isMobileLandscape ? "73%" : M ? "83%" : "84%", // raised on mobile landscape
+        left: M ? "82%" : "48%",
+        link: "/portfolio",
+      },
+      {
+        id: "single",
+        label: "Latest Releases",
+        top: "52%",
+        left: M ? "84%" : "49%",
+        link: "/music",
+      },
+    ];
+  }
 
-    if (currentLabel === "Music Room") {
-      return [
-        {
-          id: "purpleflux",
-          label: "Purple Flux",
-          top: "78%",
-          left: M ? "93%" : "55%",
-          link: "https://purpleflux.bandzoogle.com/purple-flux-epk",
-        },
-        {
-          id: "firsthouse",
-          label: "First House",
-          top: "54%",
-          left: M ? "60%" : "35%",
-          link: "https://www.firsthouse.media/",
-        },
-      ];
-    }
+  if (currentLabel === "Music Room") {
+    return [
+      {
+        id: "purpleflux",
+        label: "Purple Flux",
+        top: "78%",
+        left: M ? "93%" : "55%",
+        link: "https://purpleflux.bandzoogle.com/purple-flux-epk",
+      },
+      {
+        id: "firsthouse",
+        label: "First House",
+        top: "54%",
+        left: M ? "60%" : "35%",
+        link: "https://www.firsthouse.media/",
+      },
+    ];
+  }
 
-    if (currentLabel === "Purple Flux") {
-      return [
-        {
-          id: "playlists",
-          label: "Playlists",
-          top: "50%",
-          left: M ? "109%" : "65%",
-          link: "https://open.spotify.com/playlist/1IQ7GSQALjqV1fq39FImuF?si=bc4YuJZYT22oHRVNR_yRDg&pt=0c13a9083d514e74c837ab8aa24b7e01&pi=Musqii2WSyyN9",
-        },
-        {
-          id: "comingsoon",
-          label: "Coming Soon",
-          top: "45%",
-          left: M ? "40%" : "25%",
-          link: "#",
-        },
-      ];
-    }
+  if (currentLabel === "Purple Flux") {
+    return [
+      {
+        id: "playlists",
+        label: "Playlists",
+        top: "50%",
+        left: M ? "109%" : "65%",
+        link: "https://open.spotify.com/playlist/1IQ7GSQALjqV1fq39FImuF?si=bc4YuJZYT22oHRVNR_yRDg&pt=0c13a9083d514e74c837ab8aa24b7e01&pi=Musqii2WSyyN9",
+      },
+      {
+        id: "comingsoon",
+        label: "Coming Soon",
+        top: "45%",
+        left: M ? "40%" : "25%",
+        link: "#",
+      },
+    ];
+  }
 
-    return [];
-  };
+  return [];
+};
 
   return (
-    <div className="relative w-screen h-screen bg-black">
+    // CHANGED: h-screen -> h-screen h-[100dvh] h-[100svh] to remove mobile landscape gap
+    <div className="relative w-screen h-screen h-[100dvh] h-[100svh] bg-black">
       <Header setStoriesOpen={setStoriesOpen} />
 
       <AnimatePresence mode="wait">
@@ -404,25 +407,29 @@ export default function Home() {
 
       {isHomePage && (
         <>
+          {/* M emblem button - FIXED and high z-index */}
           <button
             onClick={() => setFooterOpen(!isFooterOpen)}
-            className="absolute bottom-5 right-5 w-8 h-8 border border-white rounded-full flex items-center justify-center text-white z-50"
+            className="fixed bottom-5 right-5 w-8 h-8 border border-white rounded-full flex items-center justify-center text-white z-[1000] pointer-events-auto"
+            aria-label="Open footer menu"
           >
             M
           </button>
 
+          {/* Footer popup - FIXED and high z-index */}
           <AnimatePresence>
             {isFooterOpen && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                className="absolute bottom-16 right-5 text-white text-xs md:text-sm flex flex-col items-end space-y-2 z-50"
+                className="fixed bottom-16 right-5 text-white text-xs md:text-sm flex flex-col items-end space-y-2 z-[1000] pointer-events-auto"
               >
                 <a
                   href="https://www.instagram.com/marnino_"
                   className="footer-link"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   Instagram
                 </a>
@@ -430,6 +437,7 @@ export default function Home() {
                   href="https://www.tiktok.com/@marninot"
                   className="footer-link"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   TikTok
                 </a>
@@ -437,6 +445,7 @@ export default function Home() {
                   href="https://www.facebook.com/MarninoT/"
                   className="footer-link"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   Facebook
                 </a>
@@ -456,12 +465,22 @@ export default function Home() {
             )}
           </AnimatePresence>
 
+          {/* Stories popup - FIXED and high z-index */}
           <AnimatePresence>
             {isStoriesOpen && (
-              <motion.div className="absolute top-16 left-1/2 transform -translate-x-1/2 border-2 border-white rounded-lg p-6 text-white w-80 shadow-lg z-50 backdrop-blur-xl bg-opacity-30">
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="fixed top-16 left-1/2 -translate-x-1/2 border-2 border-white rounded-lg p-6 text-white w-80 shadow-lg z-[1000] backdrop-blur-xl bg-black/30 pointer-events-auto"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Latest Stories"
+              >
                 <button
                   onClick={() => setStoriesOpen(false)}
                   className="absolute top-2 right-2 text-white text-xl font-bold hover:text-gray-300"
+                  aria-label="Close stories"
                 >
                   ✖
                 </button>
@@ -485,6 +504,7 @@ export default function Home() {
                               onClick={() => handleReaction(story.id, emoji)}
                               className="text-xl"
                               whileTap={{ scale: 1.5 }}
+                              aria-label={`React ${emoji}`}
                             >
                               {emoji} {story.reactions?.[emoji] || 0}
                             </motion.button>
