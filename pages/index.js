@@ -266,7 +266,7 @@ export default function Home() {
                   <img
                     src={rooms[currentRoom].src}
                     alt={rooms[currentRoom].label}
-                    className="h-full w-auto max-w-none object-contain scale-[1.01]"
+                    className="h-full w-auto max-w-none object-contain"
                   />
                   {getHoverDots().map((dot) => {
                     const isActive = activeDotId === dot.id;
